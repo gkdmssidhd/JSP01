@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style>
+		label {
+			display: inline-block;
+			width: 60px;
+		}
+		p{
+			margin: 5px 0;
+		}
+		fieldset {
+			width: 300px;
+		}
+		</style>
+		<!-- html에서 jquery사용 -->
+		<script src="http://code.jquery.com/jquery.js"></script>
+		<script>
+		/** 
+		 * $(function()
+		 * 서버가 실행되어 화면이 시작되면서 작동 $(function() 안에 함수를 작성하면 실행 가능 (java에서 main과 같은 개념으로 보면 쉬움)		 
+		 */ 
+		$(function() {
+			/**
+			 * $('form').submit(function()
+			 * $('form') >> form 객체를 불러온다.
+			 * $('form').submit >> form 객체안에 submit 버튼을 클릭한다.
+			 * ※ form에 데이터를 전송시키기 위해 submit 이벤트가 필요 >> <input type="submit"> 이렇게 작성하면 버튼 생성
+			 */
+			$('form').submit(function() { // form안에 있는 submit 버튼이 클릭 시 실행
+				/**
+				 * 페이지 새로고침 제어 이벤트
+				 * submit 이 발생하면 화면을 새로고침함
+				 * 유효성 검사가 끝나기 전까지 새로고침을 하지 못하도록 제어
+				 */
+				event.preventDefault();
+				
+				/**
+				 * this >> $('form') 을 가리킴
+				 * alert >> 메세지 창 출력
+				 * focus() >> 지정한 객체에 커서 이동
+				 * return >> 유효성 검사를 통과하지 못할 경우, 다음 기능을 수행하지 못하도록 제어
+				 */
+				if (this.no.value == "") {
+					alert("no는 필수 입력 항목입니다!");
+					this.no.focus();
+					return;
+				}
+				
+				if (this.name.value == "") {
+					alert("name는 필수 입력 항목입니다!");
+					this.name.focus();
+					return;
+				}
+				
+				if (this.email.value == "") {
+					alert("email는 필수 입력 항목입니다!");
+					this.email.focus();
+					return;
+				}
+				
+				if (this.phone.value == "") {
+					alert("phone는 필수 입력 항목입니다!");
+					this.phone.focus();
+					return;
+				}
+				
+				/**
+				 * action >> form을 submit 했을 때, 이동할 페이지 url
+				 * method >> form을 submit 하여 데이터를 전송할 [방식] ( GET : URL 출력 / POST : URL 미출력 )
+				 * submit() >> submit 실행 ※ submit 버튼을 클릭하는 것과 실제 submit이 실행되는 것을 헷갈리면 안됨!!! 
+				 */
+				this.action = "form_ok.jsp";
+				this.method = "GET";
+				this.submit();
+			}); // 안에 function 끝
+		}); // 큰 function 끝
+		</script>
+	</head>
+	<body>
+		<h1>::: 고객정보입력 :::</h1>
+		<form>
+			<fieldset>
+				<legend>기본정보</legend>
+				<input type="hidden" id="no" name="no" value="0" />
+				<p><label for="name">Name</label><input type="text" id="name" name="name" /></p>
+				<p><label for="email">Email</label><input type="text" id="email" name="email" /></p>
+				<p><label for="phone">Phone</label><input type="text" id="phone" name="phone" /></p>
+				<p><input type="submit" value="저장하기" /></p>
+			</fieldset>
+		</form>
+	</body>
+</html>

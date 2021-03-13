@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+		<meta charset="UTF-8">
+			<title>form</title>
+			<style>
+			label {
+				display: inline-block;
+				width: 60px;
+			}
+			p {
+				margin: 5px 0;
+			}
+			fieldset {
+				width: 300px;
+			}
+			</style>
+			<script src="http://code.jquery.com/jquery.js"></script>
+			<script>
+				// 서버가 실행되어 화면이 시작되면서 작동 function안에 함수를 작성하면 실행가능 java에서의 main같은 개념
+				$(function() {
+					// form안에 있는 submit 이 눌리면 form안에 객체들을 불러오고 function안에 함수들이 실행된다.
+					$('form').submit(function() {
+						// submit하면 페이지가 새로고침 되서 유효성 검사가 끝나기전까지 새로고침 안되게 제어
+						event.preventDefault();
+						
+						// form에 no. 들어온값이 아무것도 없음녀 메세지창에 입력하라고 띄움
+						// 마우스 커서가 no로 감. ruturn은 유효성 no검사 통과해야 넘어갈 수 있게 제어
+						if(this.no.value == "") {
+							alert("no는 필수 입력 항목이다!");
+							this.no.focus();
+							return;							
+						}
+						if (this.name.value == "") {
+							alert("name는 필수 입력 항목입니다!");
+							this.name.focus();
+							return;
+						}
+						if (this.email.value == "") {
+							alert("email는 필수 입력 항목입니다!");
+							this.email.focus();
+							return;
+						}
+						if (this.phone.value == "") {
+							alert("phone는 필수 입력 항목입니다!");
+							this.phone.focus();
+							return;
+						}
+						// action > form을 submit 했을때 form_ho.jsp url로 가라
+						// method > 데이터 전송방식 get은 url출력
+						// submit 실행! / 버튼이 눌려지는게 아님.
+						this.action = "form_ho.jsp";
+						this.method = "GET";
+						this.submit();
+					}); 
+				}); 
+				</script>
+		</head>
+		<body>
+			<h1>냥냥정보 입력</h1>
+				<form>
+					<fieldset>
+						<legend>기본정보</legend>
+					 	<!-- 사용자에게는 보이지않지만 개발자들에게는 보이는 hidden -->
+						<input type="hidden" id="no" name="no" value="0" />
+						
+						<!-- label요소는 여러가지 요소데 대한 레이블 정의
+						for 속성을 사용하여 다른 요소와 결합 가능 
+						하지만 label요소의 for 속성과 id 속성값이 같아야함.
+						ex) label for="a" id="a"
+						label요소를 사용할 수 있는 요소(button, input, meter, output, progress, select, textarea)-->
+					<p><label for="name">Name</label><input type="text" id="name" name="name" /></p>
+					<p><label for="email">Email</label><input type="text" id="email" name="email" /></p>
+					<p><label for="phone">Phone</label><input type="text" id="phone" name="phone" /></p>
+					<p><input type="submit" value="저장하기" /></p>
+				</fieldset>
+			</form>
+		</body>
+	</html>
