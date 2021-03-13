@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/underscore@1.12.0/underscore-min.js"></script>
+<script>
+var listTemp = `<table border="1" width="100%">
+   <tr>
+   <th>No</th>
+   <th>Name</th>
+   <th>Email</th>
+   <th>Phone</th>
+</tr>
+<%
+for(var i=0; i<mem_list.length; i++) { 
+   var member = mem_list[i];
+%>
+<tr>
+   <td><%=member.no %></td>
+   <td><%=member.name %></td>
+   <td><%=member.email %></td>
+   <td><%=member.phone %></td>
+</tr>
+<%
+} // end of for
+%>
+</table>`;
+
+$(function() {
+   var memList = [];
+   function getList(cmd, searchData) {
+      // 실행하면 바로 서버에서 memList를 받아온다.
+      $.get("MemberServer.jsp?cmd="+cmd+"&searchData="+searchData, function(data, status) {
+         if(status == 'success') {
+            var jsObj = JSON.parse(data.trim());
+            // 검색 기능에서 사용 가능하도록 전역변수에 저장한다.
+            memList = jsObj.mem_list;
+            var compiled = _.template(listTemp);
+            $('#area').html( compiled({mem_list: memList}) );
+         } else {
+            document.write("<h2>서버 오류!</h2>");
+         }
+      });
+   }// end of getList
+   //호출
+   getList("list", null);
+   
+   // 방법1. 검색버튼을 누르면 get()으로 서버에서 검색된 내용을 받아온다.(속도가 저하될수 있다.)
+   // 방법2. 이미 서버로 부터 전달 받은  memList 에서 바로 검색 한다.(속도는 빠르나 정확도가 떨어진다.)
+   var searchAction2 = function() {
+      // memList를 새로 만드는 기능.
+      var searchData = $('#search').val();
+      console.log(searchData);
+      getList("search", searchData);
+   };
+   var searchAction = function() {
+      // 이 페이지가 최초 실행 될때 불러 온 목록에서 검색한다.
+      var newMemList = [];
+      var searchData = $('#search').val();
+      var cate = $('#cate').val();
+      console.log(searchData);
+      var patt = new RegExp(searchData, "gi");
+      for(mem of memList) {
+         if(mem[cate].match(patt)) {
+            newMemList.push(mem);
+         }
+      }
+      // 위에 선언된 템플릿을 활용해서 목록을 갱신한다.
+      var compiled = _.template(listTemp);
+      $('#area').html( compiled({mem_list: newMemList}) );
+   }
+   $('#searchBtn').click(searchAction);
+   $('#search').keyup(searchAction);
+   
+   // 저장하기 버튼을 클릭하면 입력 데이터를 서버로 전송한다.
+   $('#saveBtn').click(function() {
+      var member = {
+         no : $("#no").val(),
+         name : $("#name").val(),
+         email : $("#email").val(),
+         phone : $("#phone").val(),
+      };
+      console.log(member);
+      
+      $.post("MemberServer.jsp", member, function(data, status) {
+         if(status == 'success') {
+            data = data.trim();
+            var memList = JSON.parse(data).mem_list;
+            var compiled = _.template(listTemp);
+            $('#area').html( compiled({mem_list: memList}) );
+         } else {
+            document.write("<h2>서버 오류!</h2>");
+         }
+      });
+   });
+});
+</script>
+</head>
+<body>
+<h1>::: 회원 정보 입력 :::</h1>
+<table>
+   <tr>
+      <th>No</th>
+      <td><input type="text" id="no" value="1004" /></td>
+   </tr>
+   <tr>
+      <th>Name</th>
+      <td><input type="text" id="name" value="HONG" /></td>
+   </tr>
+   <tr>
+      <th>Email</th>
+      <td><input type="text" id="email" value="hong@korea.com" /></td>
+   </tr>
+   <tr>
+      <th>Phone</th>
+      <td><input type="text" id="phone" value="010-1111-1234" /></td>
+   </tr>
+   <tr>
+      <th colspan="2"><button id="saveBtn">저장하기</button></th>
+   </tr>
+</table>
+<hr>
+<h1>::: 회원 정보 목록 :::</h1>
+<select id="cate">
+   <option value="no">no</option>
+   <option value="name" selected>name</option>
+   <option value="email">email</option>
+   <option value="phone">phone</option>
+</select>
+<input type="text" id="search" /><button id="searchBtn">검색</button>
+<div id="area"></div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/underscore@1.12.0/underscore-min.js"></script>
+<script>
+var listTemp = `<table border="1" width="100%">
+	<tr>
+	<th>No</th>
+	<th>Name</th>
+	<th>Email</th>
+	<th>Phone</th>
+</tr>
+<%
+for(var i=0; i<mem_list.length; i++) { 
+	var member = mem_list[i];
+%>
+<tr>
+	<td><%=member.no %></td>
+	<td><%=member.name %></td>
+	<td><%=member.email %></td>
+	<td><%=member.phone %></td>
+</tr>
+<%
+} // end of for
+%>
+</table>`;
+// 능서불택필
+$(function() {
+	var urlStr = "MemberServer.jsp";
+	$.get(urlStr, function(data, status) {
+		if(status == 'success') {
+			var jsObj = JSON.parse(data.trim());
+			var memList = jsObj.mem_list;
+			console.log(memList);
+			
+			var compiled = _.template(listTemp);
+			$('#area').html( compiled({mem_list: memList}) );
+		} else {
+			document.write("<h2>서버 오류!</h2>");
+		}
+	});
+});
+</script>
+</head>
+<body>
+<h1>::: 회원 정보 목록 :::</h1>
+<div id="area"></div>
+</body>
+</html>
