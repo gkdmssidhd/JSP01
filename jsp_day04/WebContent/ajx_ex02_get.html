@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Get 방식으로 Ajax 처리</title>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script>
+	$(function(){
+		// 버튼을 누르면 
+		$("button").click(function() {
+/*			var name = $("#name").val(); //.val()을 Getter 로 이용
+			var city = $("#city").val();*/
+			//	Ajax 실행
+			$.get("demo_test.jsp?name="+name+"&city="+city, function(data, status) {
+			//	console.log(status);
+			//	console.log(data);	
+			if(status == "success") {
+				$("#result").html(data);			
+	/*			 $("#name").val("").focus(); //.val()을 Setter 로 이용
+				 $("#city").val(""); */
+			}
+			});
+		});
+	});	
+</script>
+</head>
+<body>
+	<h1>Get 방식으로 Ajax 처리</h1>
+	NAME : <input type="text" id="name" value="KIM"/><br>
+    CITY : <input type="text" id="city" value="SEOUL"/><br>
+
+	
+	<button>Get 방식으로 Ajax 처리</button>
+	
+	<div id="result">여기에 내용이 보여집니다.</div>
+
+</body>
+</html>

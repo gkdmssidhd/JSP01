@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>박스 5개</title>
+
+<style>
+#box > ul {
+	position: relative;
+	left: 0px;
+	top: 0px;
+	border: 3px solid green; /* 제일 바깥*/
+	width: 1000px;
+	height: 100px;
+	margin: 0;
+	padding: 0;
+	style-transition : left 1s cubic-bezier(.02,.92,.99,.07);
+}
+
+#box > ul > li {
+	width: 200px;
+	height: 100px;
+	border: 3px solid blue; /* 안쪽?박스 */
+	box-sizing: border-box;
+	list-style: none;
+	float: left;
+	
+}
+#box {
+	width: 200px;
+	height: 100px;
+	border : 5px solid black; /* 첫번째 박스 */
+	overflow: hidden; /* 히든 없애면 박스다 나열 있으면 박스 하나에서만 이동*/
+	background:-webkit-gradient(linear, 80% 20%, 10% 21%, from(#C6A39E),to(#FF4E28))
+}
+
+</style>
+<script src="http://code.jquery.com/jquery.js"></script>
+
+<script>
+$(function() { /* 다음칸으로 이동하게 하는거*/
+	var x =0;
+	$('#nextBtn').click(function() {
+		// console.log("nextBtn");
+		x += -200;	
+		if(x>-1000) {
+			$('#box ul').animate({left:x+"px"}, 'fast') /* -를 붙여야 왼쪽으로이동 안붙이면 오른쪽으로 감*/			
+		} else {
+			alert("맨 마지막입니다");
+			x = -1000;
+		}
+	});
+	$('#prevBtn').click(function() {
+		x += 200;
+		if(x>0) {
+			alert("맨 처음 입니다");
+		} else {
+			$('#box ul').animate({left:x+"px"},'fast') 
+		}
+		
+	});
+});
+</script>
+</head>
+<body>
+
+<button id="nextBtn"> >> </button>
+<button id="prevBtn"> << </button>
+
+<div id="box">
+	<ul>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+	</ul>
+	
+</div>
+</body>
+</html>

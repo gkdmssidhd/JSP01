@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>어떻게 자바스크립트를 사용 할까요?</title>
+<script>
+// 한줄 주석
+/* 여러줄 주석
+ 자바 스크립트 : 클라이언트 측의 브라우저에서 실행 되는 프로그랭 언어이다.
+ JS(자바스크립트) 작성은 .html 파일이나 .jsp파일 모두에서 구현 가능.
+*/
+ 
+</script>
+
+</head>
+<body>
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>어떻게 자바스크립트를 사용 할까요?</h2>
+
+<p id="demo">여기는 demo 공간</p>
+
+<button id="btn" type="button">Click Me!</button>
+
+<script>
+// getElementById() 이용한 DOM 선택하기
+var btn = document.getElementById("btn");
+var demo = document.getElementById("demo");
+// 선택된 요소에 이벤트 핸들러 적용
+// 이벤트 핸들러는 함수다.
+// btn요소의 onclick 속성에 함수를 대입하는 것.
+// onXXX 이벤트 핸들러
+btn.onclick = function() {
+// demo 객체의 요소값을 변경한다.
+	demo.innerHTML = "안녕 자바스크립트";
+}
+// -- 자바스크립트 기본 사용 법
+// 1. 제어하고자 하는 요소들을 DOM 셀렉트한다.
+// 2. 요소에 이벤트를 붙여준다(이벤트는 함수이다)
+// 3. 이벤트 핸들러 함수에 실행 할 기능을 정의한다.
+
+</script>
+</body>
+</html>
+</body>
+</html>

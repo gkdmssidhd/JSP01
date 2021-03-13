@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>몰라</title>
+</head>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script>
+
+// jquery 진입점 축약
+$(function() {
+	var jqueryBox = $(".box");
+	console.dir(jqueryBox);
+	
+	var domBox = $(".box").get(0); // $(".box")[0]
+	console.dir(domBox);
+	
+	var jqueryBox2 = $(domBox);
+	console.dir(jqueryBox2);
+	// 자바스크립트 객체와 제이쿼리 객체를 서로 바꿔서 해도된다?
+});
+</script>
+
+<body>
+
+<div class="box">BOX</div>
+
+</body>
+</html>

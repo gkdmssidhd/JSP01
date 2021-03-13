@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+body {
+	background-color: yellow;
+}
+h1 {
+	color: orange;
+	font-size: 36pt;
+	text-shadow: 2px 2px brown;
+}
+h3 {
+	color: navy;
+	font-size: 24pt;
+}
+h3.a1 {
+	font-size: 14pt;
+}

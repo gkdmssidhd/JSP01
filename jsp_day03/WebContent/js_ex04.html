@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery</title>
+<style>
+div.box {
+	 position: absolute;
+	 width: 100px;
+	 height: 100px;
+	 background: red;
+}
+</style>
+<!-- jQuery CDN 사용하기 (구글에서 검색)-->
+<script src="http://code.jquery.com/jquery.js"></script>
+
+<!-- CDN script 태그와 구현 script 태그는 별도로 만든다. -->
+
+<script>
+// jQuery의 진입점
+// 제어하고자 하는 요소 아래에 script소스가 있다면 진입점은 생략 가능.
+$(document).ready(function() {
+	// jQuery로 요소 선택하기
+	// $(선택기).기능(콜백함수);
+	$('.startBtn').click(function() {
+		// alert("click start button!");
+		$('div.box').animate({left:'400px'}, function() {
+			$(this).css("left", "0");
+		});
+	});
+});
+/* !! 위에 진입점과 밑에 진입점 함께 쓰지 않기 !!*/
+
+// 자바스크립트의 진입점과 다르다.
+// 자바스크립트의 진입점과 같이 쓰면 안좋음.
+// window.onload = function() {
+	// 자바스크립트 최상위 객체는 window	
+	// 윈도우.온로드는 모든 문서의 요소를 로드하면 실행한다.
+	// <head>태그에 <script>태그가 들어 갈 경우엔 진입점이 필수.
+// };
+
+
+</script>
+</head>
+<body>
+
+<button class="startBtn">Start</button>
+<hr>
+<div class="box">box</div>
+	
+</body>
+
+</html>

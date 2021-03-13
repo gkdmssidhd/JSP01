@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Post 방식으로 Ajax 처리</title>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script>
+	$(function(){
+		// 파라미터로 사용 될 js 객체를 생성한다.
+		$("button").click(function() {
+			var params = {
+			 name : $("#name").val(), //.val()을 Getter 로 이용
+			 city : $("#city").val()
+			} 
+			//	Ajax 실행
+			$.post("demo_test.jsp", params, function(data, status) {
+			//	console.log(status);
+			//	console.log(data);	
+			if(status == "success") {
+				$("#result").html(data);			
+				 $("#name").val("").focus(); //.val()을 Setter 로 이용
+				 $("#city").val("");
+			}
+			});
+		});
+	});	
+</script>
+</head>
+<body>
+<h1>Post 방식으로 Ajax 처리</h1>
+	NAME : <input type="text" id="name" value="KIM"/><br>
+    CITY : <input type="text" id="city" value="SEOUL"/><br>
+
+	
+	<button>Get 방식으로 Ajax 처리</button>
+	
+	<div id="result">여기에 내용이 보여집니다.</div>
+
+</body>
+</html>

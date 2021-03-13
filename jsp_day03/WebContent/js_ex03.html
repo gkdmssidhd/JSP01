@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<style>
+div.box {
+	position : relative; /* 레이어처럼 사용하기 위해 left랑 top 은 포지션 해줘야 됌 */
+	width : 100px;
+	height : 100px;
+	background : pink;
+	border : 2px solid red;
+	left : 0px;
+	/* transition : left 1s cubic-bezier(.02,.92,.99,.07); */ 
+	/* 넣어줄값 옆에는초 ease 스무스하게*/
+}
+
+</style>
+</head>
+<body>
+
+<button class="btn">Start</button> 
+<button class="btn">Reset</button>
+<hr>
+<div class="box">BOX</div> 
+
+<script>
+// DOM 변수 선언
+var btn = document.querySelectorAll(".btn")[0];
+var resetBtn = document.querySelectorAll(".btn")[1];
+var box = document.querySelectorAll(".box")[0];
+// console.log(btn); //콘솔은 시스아웃 같은거
+// console.log(box);
+
+
+// 기능은 좋지만 하위버전에서 좀 빡셈
+btn.addEventListener("click" , function() {
+	// 이벤트 이름, 콜백함수 클릭하면 위에 창 띄워주는거
+	//alert("btn clicked"); 
+	
+	box.style.transition = "left 1s cubic-bezier(.02,.92,.99,.07)";
+	// btn을 클릭하면 box에 left를 변경한다
+	box.style.left = "600px";	
+});
+resetBtn.addEventListener("click", function() {
+	box.style.transition = null;
+	box.style.left = "0px";
+});
+
+// 위에꺼보다 기능 떨어지지만 모든 브라우저에서는 다 된다.
+// btn.onclick = function() {}	
+
+</script>
+
+</body>
+</html>

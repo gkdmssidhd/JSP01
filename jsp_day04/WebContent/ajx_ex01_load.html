@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+h1 {
+	color : green;
+	
+}
+
+</style>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script>
+$(function() {
+	$('button').click(function() {
+		$("#demo").load("data.txt",function() {	
+		// load가 끝나면 실행하는 콜백함수에서 이벤트 처리를 한다.
+		$("#goBtn").click(function() {
+			location.href = "http://naver.com";
+			});
+		});
+	});
+});
+
+</script>
+</head>
+<body>
+<h3>Welcome to 동막골</h3>
+
+<div id = "demo">여기의 내용이 바뀝니다.</div>
+<p><button>불러오기</button></p>
+
+</body>
+</html>
